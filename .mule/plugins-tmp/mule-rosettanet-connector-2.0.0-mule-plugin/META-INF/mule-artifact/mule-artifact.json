@@ -1,0 +1,34 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "com.mulesoft.connectors.rosettanet.extension.internal.extension.RosettaNetExtension",
+      "version": "2.0.0"
+    }
+  },
+  "license": {
+    "requiredEntitlement": "rosettanet",
+    "provider": "Mulesoft",
+    "allowsEvaluation": true
+  },
+  "name": "RosettaNet",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "com.mulesoft.connectors.rosettanet.extension.api",
+        "com.mulesoft.connectors.rosettanet.extension.api.config",
+        "com.mulesoft.connectors.rosettanet.extension.api.data"
+      ],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "minMuleVersion": "4.1.0"
+}

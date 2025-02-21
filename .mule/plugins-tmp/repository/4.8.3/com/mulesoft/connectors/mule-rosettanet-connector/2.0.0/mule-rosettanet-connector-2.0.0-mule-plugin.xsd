@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/rosetta" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
+  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="config">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="mule:abstractExtensionType">
+          <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" name="object-store">
+              <xs:annotation>
+                <xs:documentation>Object store configuration reference. If not set the connector always uses the default persistent object store to retain sent messages waiting for acknowledgments or retrys; if set, the referenced bean must be an object store configuration to be used instead.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element minOccurs="1" maxOccurs="1" ref="mule:abstract-private-object-store"></xs:element>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="xs:string" use="required" name="listenerConfigName">
+            <xs:annotation>
+              <xs:documentation>Reference to global HTTP Listener definition for our service endpoint used by partner for both action and signal messages.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="servicePath">
+            <xs:annotation>
+              <xs:documentation>Service endpoint path, appended to base path on HTTP Listener.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="requesterConfigName">
+            <xs:annotation>
+              <xs:documentation>Reference to global HTTP Request definition for partner service endpoint used when sending both action and signal messages.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="requestPath">
+            <xs:annotation>
+              <xs:documentation>Partner endpoint path, appended to base path on HTTP Request.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="optional" name="keystorePath">
+            <xs:annotation>
+              <xs:documentation>Keystore containing trusted partner certificates and our own private signing key and certificate (JKS format).</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" name="keystorePass">
+            <xs:annotation>
+              <xs:documentation>Keystore access password.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" name="privatePass">
+            <xs:annotation>
+              <xs:documentation>Private signing key password (required if signing either action or signal messages).</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/rosetta" type="com.mulesoft.connectors.rosettanet.extension.api.config.ForceSigningEnumType" use="optional" name="signingOverride">
+            <xs:annotation>
+              <xs:documentation>Force message signing on or off (when set, overrides signing configured by PIP definition).</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/rosetta" type="com.mulesoft.connectors.rosettanet.extension.api.config.UsageCodeEnumType" use="optional" default="Production" name="globalUsageCode">
+            <xs:annotation>
+              <xs:documentation>Choose whether operating in Test or Production mode, or if both allowed.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="optional" name="objectStore">
+            <xs:annotation>
+              <xs:documentation>Object store configuration reference. If not set the connector always uses the default persistent object store to retain sent messages waiting for acknowledgments or retrys; if set, the referenced bean must be an object store configuration to be used instead.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="mule:expressionString" use="required" name="selfBusinessIdentifier">
+            <xs:annotation>
+              <xs:documentation>DUNS business identifier for this organization.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="mule:expressionString" use="required" name="selfLocationId">
+            <xs:annotation>
+              <xs:documentation>Location ID for this organization.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="mule:expressionString" use="required" name="partnerBusinessIdentifier">
+            <xs:annotation>
+              <xs:documentation>Expected DUNS business identifier for partner organization.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="mule:expressionString" use="required" name="partnerLocationId">
+            <xs:annotation>
+              <xs:documentation>Expected location ID for partner organization.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/rosetta" type="com.mulesoft.connectors.rosettanet.extension.api.config.PipRoleEnumType" use="required" name="pipRole">
+            <xs:annotation>
+              <xs:documentation>Our role in PIP usage.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="pipFile">
+            <xs:annotation>
+              <xs:documentation>PIP file path.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="name">
+            <xs:annotation>
+              <xs:documentation>The identifier of this element used to reference it in other components</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/rosetta" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ActionSourceType" substitutionGroup="mule:abstract-message-source" name="action-source"></xs:element>
+  <xs:complexType name="ActionSourceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-byte-streaming-strategy"></xs:element>
+        </xs:sequence>
+        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+          <xs:annotation>
+            <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/rosetta" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CompletionSourceType" substitutionGroup="mule:abstract-message-source" name="completion-source"></xs:element>
+  <xs:complexType name="CompletionSourceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
+        </xs:sequence>
+        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+          <xs:annotation>
+            <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/rosetta" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SendActionType" substitutionGroup="mule:abstract-operator" name="send-action"></xs:element>
+  <xs:complexType name="SendActionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-byte-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="reply-to">
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension xmlns:rosetta="http://www.mulesoft.org/schema/mule/rosetta" base="rosetta:com.mulesoft.connectors.rosettanet.extension.api.ReplyAttributes"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="content"></xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="optional" name="replyTo"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="com.mulesoft.connectors.rosettanet.extension.api.ReplyAttributes">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
+        <xs:attribute type="mule:expressionString" use="required" name="messageId"></xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="actionId"></xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="pipInstanceId"></xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="com.mulesoft.connectors.rosettanet.extension.api.config.ForceSigningEnumType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ALWAYS"></xs:enumeration>
+          <xs:enumeration value="NEVER"></xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="com.mulesoft.connectors.rosettanet.extension.api.config.UsageCodeEnumType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Test"></xs:enumeration>
+          <xs:enumeration value="Production"></xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="com.mulesoft.connectors.rosettanet.extension.api.config.PipRoleEnumType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="INITIATOR"></xs:enumeration>
+          <xs:enumeration value="RESPONDER"></xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+</xs:schema>

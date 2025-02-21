@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) 2003-2017 MuleSoft, Inc. This software is protected under international copyright law. All use of this software
+    is subject to MuleSoft's Master Subscription Agreement (or other Terms of Service) separately entered into between
+    you and MuleSoft. If such an agreement is not in place, you may not use the software.
+
+-->
+<pip pipCode="0A1" pipVersion="V02.00"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../schemas/pip-detail.xsd">
+  <processCode>Failure Notification</processCode>
+  <transactionCode>Failure Notification</transactionCode>
+  <activityIdentifier>Distribute Notification of Failure</activityIdentifier>
+  <initiatorPartnerRole>P I P Failure Notifier</initiatorPartnerRole>
+  <initiatorServiceCode>P I P Failure Notifier Service</initiatorServiceCode>
+  <responderPartnerRole>Failure Report Administrator</responderPartnerRole>
+  <responderServiceCode>Failure Report Administrator Service</responderServiceCode>
+  <requireSync>false</requireSync>
+  <requireAsync>true</requireAsync>
+  <retryCount>3</retryCount>
+  <initiatorAction>
+    <actionCode>Failure Notification Action</actionCode>
+    <requireSignedAction>false</requireSignedAction>
+    <requireSignedAcknowledge>false</requireSignedAcknowledge>
+    <timeToAcknowledge>7200</timeToAcknowledge>
+    <dtdName>0A1_MS_V02_00_FailureNotification.dtd</dtdName>
+    <xsdName>0A1_MS_V02_00_FailureNotification.xsd</xsdName>
+  </initiatorAction>
+</pip>

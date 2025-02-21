@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  
+  RosettaNet XML Message Schema
+  0A1_MS_V02_00_FailureNotification.dtd (13-Jul-2001)
+  
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:element name="Pip0A1FailureNotification">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActionControl"/>
+        <xs:element minOccurs="0" ref="failedInitiatingDocumentDateTime"/>
+        <xs:element minOccurs="0" ref="failedInitiatingDocumentIdentifier"/>
+        <xs:element ref="fromRole"/>
+        <xs:element ref="GlobalDocumentFunctionCode"/>
+        <xs:element ref="ProcessIdentity"/>
+        <xs:element ref="reason"/>
+        <xs:element ref="thisDocumentGenerationDateTime"/>
+        <xs:element ref="thisDocumentIdentifier"/>
+        <xs:element ref="toRole"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActionControl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActionIdentity"/>
+        <xs:element ref="messageTrackingID"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActionIdentity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GlobalBusinessActionCode"/>
+        <xs:element minOccurs="0" ref="messageStandard"/>
+        <xs:element minOccurs="0" ref="standardVersion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GlobalBusinessActionCode" type="xs:string"/>
+  <xs:element name="messageStandard" type="FreeFormText"/>
+  <xs:complexType name="FreeFormText">
+    <xs:sequence>
+      <xs:element ref="FreeFormText"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FreeFormText">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="standardVersion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VersionIdentifier"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VersionIdentifier" type="xs:string"/>
+  <xs:element name="messageTrackingID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="InstanceIdentifier"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InstanceIdentifier" type="xs:string"/>
+  <xs:element name="failedInitiatingDocumentDateTime" type="DateTimeStamp"/>
+  <xs:complexType name="DateTimeStamp">
+    <xs:sequence>
+      <xs:element ref="DateTimeStamp"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DateTimeStamp" type="xs:string"/>
+  <xs:element name="failedInitiatingDocumentIdentifier" type="ProprietaryDocumentIdentifier"/>
+  <xs:complexType name="ProprietaryDocumentIdentifier">
+    <xs:sequence>
+      <xs:element ref="ProprietaryDocumentIdentifier"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProprietaryDocumentIdentifier" type="xs:string"/>
+  <xs:element name="fromRole" type="PartnerRoleDescription"/>
+  <xs:complexType name="PartnerRoleDescription">
+    <xs:sequence>
+      <xs:element ref="PartnerRoleDescription"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PartnerRoleDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="ContactInformation"/>
+        <xs:element ref="GlobalPartnerRoleClassificationCode"/>
+        <xs:element ref="PartnerDescription"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="contactName"/>
+        <xs:element ref="EmailAddress"/>
+        <xs:element minOccurs="0" ref="facsimileNumber"/>
+        <xs:element ref="telephoneNumber"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contactName" type="FreeFormText"/>
+  <xs:element name="EmailAddress" type="xs:string"/>
+  <xs:element name="facsimileNumber" type="CommunicationsNumber"/>
+  <xs:complexType name="CommunicationsNumber">
+    <xs:sequence>
+      <xs:element ref="CommunicationsNumber"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CommunicationsNumber" type="xs:string"/>
+  <xs:element name="telephoneNumber" type="CommunicationsNumber"/>
+  <xs:element name="GlobalPartnerRoleClassificationCode" type="xs:string"/>
+  <xs:element name="PartnerDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BusinessDescription"/>
+        <xs:element ref="GlobalPartnerClassificationCode"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BusinessDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GlobalBusinessIdentifier"/>
+        <xs:element ref="GlobalSupplyChainCode"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GlobalBusinessIdentifier" type="xs:string"/>
+  <xs:element name="GlobalSupplyChainCode" type="xs:string"/>
+  <xs:element name="GlobalPartnerClassificationCode" type="xs:string"/>
+  <xs:element name="GlobalDocumentFunctionCode" type="xs:string"/>
+  <xs:element name="ProcessIdentity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GlobalProcessIndicatorCode"/>
+        <xs:element ref="InstanceIdentifier"/>
+        <xs:element ref="VersionIdentifier"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GlobalProcessIndicatorCode" type="xs:string"/>
+  <xs:element name="reason" type="FreeFormText"/>
+  <xs:element name="thisDocumentGenerationDateTime" type="DateTimeStamp"/>
+  <xs:element name="thisDocumentIdentifier" type="ProprietaryDocumentIdentifier"/>
+  <xs:element name="toRole" type="PartnerRoleDescription"/>
+</xs:schema>

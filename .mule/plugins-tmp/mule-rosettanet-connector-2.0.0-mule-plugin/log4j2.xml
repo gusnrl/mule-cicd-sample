@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) 2003-2017 MuleSoft, Inc. This software is protected under international copyright law. All use of this software
+    is subject to MuleSoft's Master Subscription Agreement (or other Terms of Service) separately entered into between
+    you and MuleSoft. If such an agreement is not in place, you may not use the software.
+
+-->
+<Configuration>
+   <Properties>
+       <Property name="PATTERN">%-5level %d [%t] %c:%M(%L): %m%n</Property>
+   </Properties>
+   <Appenders>
+       <Console name="STDOUT" target="SYSTEM_OUT">
+           <PatternLayout pattern="${PATTERN}"/>
+       </Console>
+   </Appenders>
+   <Loggers>
+       <Logger name="com.mulesoft.connectors.rosettanet" level="INFO"/>
+       <Root level="ERROR">
+           <AppenderRef ref="STDOUT"/>
+       </Root>
+   </Loggers>
+</Configuration>

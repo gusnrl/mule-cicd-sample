@@ -1,0 +1,17 @@
+{
+    "configs": ["rosetta-seller.xml"],
+    "redeploymentEnabled": true,
+    "name": "rosetta-seller",
+    "classLoaderModelLoaderDescriptor": {
+        "attributes": {},
+        "id": "mule"
+    },
+    "requiredProduct": "MULE_EE",
+    "minMuleVersion": "4.1.2",
+    "bundleDescriptorLoader": {
+        "attributes": {},
+        "id": "mule"
+    },
+    "javaSpecificationVersions": ["17"],
+    "secureProperties": []
+}

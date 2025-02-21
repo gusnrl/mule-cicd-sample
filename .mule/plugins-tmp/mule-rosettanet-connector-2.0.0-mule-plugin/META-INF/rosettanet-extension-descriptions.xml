@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension-documentation>
+    <configs>
+        <config name="config">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="listenerConfigName">
+                    <description><![CDATA[Reference to global HTTP Listener definition for our service endpoint used by partner for both action and signal messages.]]></description>
+                </parameter>
+                <parameter name="servicePath">
+                    <description><![CDATA[Service endpoint path, appended to base path on HTTP Listener.]]></description>
+                </parameter>
+                <parameter name="requesterConfigName">
+                    <description><![CDATA[Reference to global HTTP Request definition for partner service endpoint used when sending both action and signal messages.]]></description>
+                </parameter>
+                <parameter name="requestPath">
+                    <description><![CDATA[Partner endpoint path, appended to base path on HTTP Request.]]></description>
+                </parameter>
+                <parameter name="keystorePath">
+                    <description><![CDATA[Keystore containing trusted partner certificates and our own private signing key and certificate (JKS format).]]></description>
+                </parameter>
+                <parameter name="keystorePass">
+                    <description><![CDATA[Keystore access password.]]></description>
+                </parameter>
+                <parameter name="privatePass">
+                    <description><![CDATA[Private signing key password (required if signing either action or signal messages).]]></description>
+                </parameter>
+                <parameter name="signingOverride">
+                    <description><![CDATA[Force message signing on or off (when set, overrides signing configured by PIP definition).]]></description>
+                </parameter>
+                <parameter name="globalUsageCode">
+                    <description><![CDATA[Choose whether operating in Test or Production mode, or if both allowed.]]></description>
+                </parameter>
+                <parameter name="objectStore">
+                    <description><![CDATA[Object store configuration reference. If not set the connector always uses the default persistent object store to retain sent messages waiting for acknowledgments or retrys; if set, the referenced bean must be an object store configuration to be used instead.]]></description>
+                </parameter>
+                <parameter name="selfBusinessIdentifier">
+                    <description><![CDATA[DUNS business identifier for this organization.]]></description>
+                </parameter>
+                <parameter name="selfLocationId">
+                    <description><![CDATA[Location ID for this organization.]]></description>
+                </parameter>
+                <parameter name="partnerBusinessIdentifier">
+                    <description><![CDATA[Expected DUNS business identifier for partner organization.]]></description>
+                </parameter>
+                <parameter name="partnerLocationId">
+                    <description><![CDATA[Expected location ID for partner organization.]]></description>
+                </parameter>
+                <parameter name="pipRole">
+                    <description><![CDATA[Our role in PIP usage.]]></description>
+                </parameter>
+                <parameter name="pipFile">
+                    <description><![CDATA[PIP file path.]]></description>
+                </parameter>
+                <parameter name="expirationPolicy">
+                    <description><![CDATA[Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.]]></description>
+                </parameter>
+            </parameters>
+        </config>
+    </configs>
+    <connections/>
+    <extension name="RosettaNet">
+        <description><![CDATA[This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.]]></description>
+        <parameters/>
+    </extension>
+    <operations>
+        <operation name="sendAction">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="replyTo">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="content">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+    </operations>
+    <sources>
+        <source name="actionSource">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="primaryNodeOnly">
+                    <description><![CDATA[Whether this source should only be executed on the primary node when runnning in Cluster]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="redeliveryPolicy">
+                    <description><![CDATA[Defines a policy for processing the redelivery of the same message]]></description>
+                </parameter>
+            </parameters>
+        </source>
+        <source name="completionSource">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="primaryNodeOnly">
+                    <description><![CDATA[Whether this source should only be executed on the primary node when runnning in Cluster]]></description>
+                </parameter>
+                <parameter name="redeliveryPolicy">
+                    <description><![CDATA[Defines a policy for processing the redelivery of the same message]]></description>
+                </parameter>
+            </parameters>
+        </source>
+    </sources>
+    <types>
+        <type name="com.mulesoft.connectors.rosettanet.extension.api.MessageAttributes">
+            <description><![CDATA[RosettaNet message attributes.]]></description>
+            <parameters>
+                <parameter name="messageId">
+                    <description><![CDATA[Action message identifier.]]></description>
+                </parameter>
+                <parameter name="partnerBusinessId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="partnerLocationId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="replyAttributes">
+                    <description><![CDATA[Identifier values used when generating an action message in reply to some other action. This is only set by the
+ Action Source.]]></description>
+                </parameter>
+                <parameter name="mimeData">
+                    <description><![CDATA[MIME action message, including signature if signing is used. This is supplied to the application to support
+ non-repudiation.]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="com.mulesoft.connectors.rosettanet.extension.api.ReplyAttributes">
+            <description><![CDATA[RosettaNet response message attributes. These attributes are used to generate action messages as follow-ons to some
+ other action message.]]></description>
+            <parameters>
+                <parameter name="messageId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="actionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="pipInstanceId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="com.mulesoft.connectors.rosettanet.extension.api.data.Completion">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="completionCode">
+                    <description><![CDATA[Type of completion for action message. SUCCESS means an Acknowledgment signal was received from the partner;
+ EXCEPTION means an Exception signal was received from the partner; FAILURE means no response signal was received
+ from the partner after the number of transmission attempts defined in the PIP configuration.]]></description>
+                </parameter>
+                <parameter name="exceptionDetail">
+                    <description><![CDATA[Details from received Exception signal. This is only present if the completion code is EXCEPTION.]]></description>
+                </parameter>
+                <parameter name="mimeData">
+                    <description><![CDATA[Received MIME signal message, provided to the application in support of signed Acknowledgment signals. This is
+ only present for completion codes of SUCCESS or EXCEPTION.]]></description>
+                </parameter>
+            </parameters>
+        </type>
+    </types>
+</extension-documentation>

@@ -1,0 +1,11 @@
+<bindings version="1.0"
+  xmlns="http://java.sun.com/xml/ns/jaxb"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <bindings schemaLocation="pip-detail.xsd" node="/xs:schema">
+    <schemaBindings>
+      <package name="com.mulesoft.connectors.rosettanet.extension.internal.config.pip"/>
+    </schemaBindings>
+  </bindings>
+</bindings>
+
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) 2003-2017 MuleSoft, Inc. This software is protected under international copyright law. All use of this software
+    is subject to MuleSoft's Master Subscription Agreement (or other Terms of Service) separately entered into between
+    you and MuleSoft. If such an agreement is not in place, you may not use the software.
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <xsd:element name="pip" type="pipDetail"/>
+ <xsd:complexType name="pipDetail">
+  <xsd:sequence>
+   <xsd:element name="processCode" type="xsd:string"/>
+   <xsd:element name="transactionCode" type="xsd:string"/>
+   <xsd:element name="activityIdentifier" type="xsd:string"/>
+   <xsd:element name="initiatorPartnerRole" type="xsd:string"/>
+   <xsd:element name="initiatorServiceCode" type="xsd:string"/>
+   <xsd:element name="responderPartnerRole" type="xsd:string"/>
+   <xsd:element name="responderServiceCode" type="xsd:string"/>
+   <xsd:element name="requireSync" type="xsd:boolean"/>
+   <xsd:element name="requireAsync" type="xsd:boolean"/>
+   <xsd:element name="retryCount" type="xsd:int"/>
+   <xsd:element name="initiatorAction" type="actionDetail"/>
+   <xsd:element name="responderAction" type="actionDetail" minOccurs="0"/>
+  </xsd:sequence>
+  <xsd:attribute name="pipCode" type="xsd:string"  use="required"/>
+  <xsd:attribute name="pipVersion" type="xsd:string"  use="required"/>
+ </xsd:complexType>
+ <xsd:complexType name="actionDetail">
+  <xsd:sequence>
+   <xsd:element name="actionCode" type="xsd:string"/>
+   <xsd:element name="requireSignedAction" type="xsd:boolean"/>
+   <xsd:element name="requireSignedAcknowledge" type="xsd:boolean"/>
+   <xsd:element name="timeToAcknowledge" type="xsd:int"/>
+   <xsd:element name="dtdName" type="xsd:string"/>
+   <xsd:element name="xsdName" type="xsd:string"/>
+  </xsd:sequence>
+ </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:rosetta="http://www.mulesoft.org/schema/mule/rosetta" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/rosetta http://www.mulesoft.org/schema/mule/rosetta/current/mule-rosetta.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1979320d-a8ff-4c25-bb9e-2ed63297e4ef" >
+		<http:listener-connection host="localhost" port="8082" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="86244f35-5090-42f6-97b0-4d4ad3ccd7cb" >
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
+	<http:listener-config name="HTTP_InputListener" doc:name="HTTP Listener config" doc:id="7b08801b-0b30-4922-a4ae-1cc434c38cf6">
+		<http:listener-connection host="localhost" port="8802" />
+	</http:listener-config>
+	<rosetta:config name="PO_ResponderConfig_Seller" pipRole="RESPONDER" doc:name="RosettaNet Config" doc:id="17f992ad-659d-4dab-ba9c-99d7f0a7eba6" listenerConfigName="HTTP_Listener_config" servicePath="/partner2" requesterConfigName="HTTP_Request_configuration" requestPath="/partner1" keystorePath="partner2.jks" keystorePass="nosecret" privatePass="partner2" globalUsageCode="Test" selfBusinessIdentifier="123456788" selfLocationId="partner2" partnerBusinessIdentifier="123456789" partnerLocationId="partner1" pipFile="/PIP3A4/V02_02.xml" />
+	<flow name="Send-Purchase-Order-Confirmation" doc:id="f947cecf-c377-4069-ac30-a6db6fa5fa8a" >
+		<http:listener doc:name="Listener" doc:id="dd0db786-c2b8-4e1f-a4f9-73b8a13f4750" config-ref="HTTP_InputListener" path="/" allowedMethods="POST"/>
+		<rosetta:send-action doc:name="Send action" doc:id="690d0ecb-7c4c-4517-9bdb-3b13c84b67f2" config-ref="PO_ResponderConfig_Seller"/>
+		<ee:transform doc:name="Transform Message" doc:id="fe982ecb-6dd3-40eb-81b9-e543d6e68066" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output text/plain
+---
+"Seller sent action message " ++ attributes.messageId ++ "\n"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="Receive-Purchase-Order-Request" doc:id="9b2f9bbe-13cf-4759-bee9-3366896ab74b" >
+		<rosetta:action-source doc:name="Action source" doc:id="82798132-2cd4-4e91-8e1e-9ade29241847" config-ref="PO_ResponderConfig_Seller"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ddfc5795-607c-4fcd-8998-9c3ccbeefb06" message="Seller received action message #[attributes.messageId]"/>
+	</flow>
+	<flow name="Send-Purchase-Order-Completion" doc:id="7120da84-2345-4aa1-a29b-2eb6cadde34d" >
+		<rosetta:completion-source doc:name="Completion" doc:id="98b1e7e0-1ee3-42f0-b299-91c720995739" config-ref="PO_ResponderConfig_Seller"/>
+		<logger level="INFO" doc:name="Logger" doc:id="98729dc6-d03b-4519-964d-0c1b5ab2564e" message="Seller action message #[attributes.replyAttributes.messageId] completed as #[payload.completionCode]"/>
+	</flow>
+</mule>

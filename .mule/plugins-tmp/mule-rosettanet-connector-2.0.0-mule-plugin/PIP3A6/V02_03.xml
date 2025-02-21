@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) 2003-2017 MuleSoft, Inc. This software is protected under international copyright law. All use of this software
+    is subject to MuleSoft's Master Subscription Agreement (or other Terms of Service) separately entered into between
+    you and MuleSoft. If such an agreement is not in place, you may not use the software.
+
+-->
+<pip pipCode="3A6" pipVersion="V02.03"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../schemas/pip-detail.xsd">
+  <processCode>Distribute Order Status</processCode>
+  <transactionCode>Distribute Order Status</transactionCode>
+  <activityIdentifier>Distribute Purchase Order Status</activityIdentifier>
+  <initiatorPartnerRole>Seller</initiatorPartnerRole>
+  <initiatorServiceCode>Seller Service</initiatorServiceCode>
+  <responderPartnerRole>Buyer</responderPartnerRole>
+  <responderServiceCode>Buyer Service</responderServiceCode>
+  <requireSync>false</requireSync>
+  <requireAsync>true</requireAsync>
+  <retryCount>3</retryCount>
+  <initiatorAction>
+    <actionCode>Purchase Order Status Notification Action</actionCode>
+    <requireSignedAction>false</requireSignedAction>
+    <requireSignedAcknowledge>false</requireSignedAcknowledge>
+    <timeToAcknowledge>7200</timeToAcknowledge>
+    <dtdName>3A6_MS_V02_03_PurchaseOrderStatusNotification.dtd</dtdName>
+    <xsdName>3A6_MS_V02_03_PurchaseOrderStatusNotification.xsd</xsdName>
+  </initiatorAction>
+</pip>

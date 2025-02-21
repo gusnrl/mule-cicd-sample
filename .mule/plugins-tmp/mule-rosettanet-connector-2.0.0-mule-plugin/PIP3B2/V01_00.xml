@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) 2003-2017 MuleSoft, Inc. This software is protected under international copyright law. All use of this software
+    is subject to MuleSoft's Master Subscription Agreement (or other Terms of Service) separately entered into between
+    you and MuleSoft. If such an agreement is not in place, you may not use the software.
+
+-->
+<pip pipCode="3B2" pipVersion="V01.00"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../schemas/pip-detail.xsd">
+  <processCode>Notify of Advance Shipment</processCode>
+  <transactionCode>Notify of Advance Shipment</transactionCode>
+  <activityIdentifier>Notify of Advance Shipment</activityIdentifier>
+  <initiatorPartnerRole>Shipper</initiatorPartnerRole>
+  <initiatorServiceCode>Shipper Service</initiatorServiceCode>
+  <responderPartnerRole>Receiver</responderPartnerRole>
+  <responderServiceCode>Receiver Service</responderServiceCode>
+  <requireSync>false</requireSync>
+  <requireAsync>true</requireAsync>
+  <retryCount>3</retryCount>
+  <initiatorAction>
+    <actionCode>Advance Shipment Notification Action</actionCode>
+    <requireSignedAction>true</requireSignedAction>
+    <requireSignedAcknowledge>true</requireSignedAcknowledge>
+    <timeToAcknowledge>1800</timeToAcknowledge>
+    <dtdName>3B2_MS_V01_00_AdvanceShipmentNotification.dtd</dtdName>
+    <xsdName>3B2_MS_V01_00_AdvanceShipmentNotification.xsd</xsdName>
+  </initiatorAction>
+</pip>
